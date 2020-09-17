@@ -1,18 +1,16 @@
-import xlrd
-import openpyxl
+import json
 
 
 def name_change(acc_no):
-    name_acc = xlrd.open_workbook('account\{}.xlsx'.format(acc_no))
-    name_sheet = name_acc.sheet_by_name('maindata')
-    usr_name = name_sheet.cell_value(0, 0)
-    acc_open = openpyxl.load_workbook('account\{}.xlsx'.format(acc_no))
-    worksheet = acc_open['maindata']
-    prev_name1 = name_sheet.cell_value(0, 0)
-    prev_name2 = worksheet.cell(1, 1)
+    acc_json = open('account\{}.json'.format(acc_no),'r')
+    acc_data = json.load(acc_json)
+    usr_name = acc_data['fname']
+    acc_json.close()
     print('Hey {}, Your Current User name is : {}'.format(usr_name,usr_name))
     print('Enter New Username ')
     new_name = input('>> ')
-    prev_name2.value = new_name
-    acc_open.save('account\{}.xlsx'.format(acc_no))
+    acc_json = open('account\{}.json'.format(acc_no),'w')
+    acc_data['fname'] = new_name 
+    json.dump(acc_data,acc_json)
+    acc_json.close()
     print('Hey {}, Your username is successfully updated.'.format(usr_name))
