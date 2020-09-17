@@ -1,9 +1,10 @@
-import xlrd
+import json
 
 
 def chk_bal(act_number):
-    bl_acc = xlrd.open_workbook('account\{}.xlsx'.format(act_number))
-    bl_sheet = bl_acc.sheet_by_name('maindata')
-    cur_bal = float(bl_sheet.cell_value(3,0))
-    usr_name = bl_sheet.cell_value(0,0)
+    acc_json = open('account\{}.json'.format(act_number),'r')
+    acc_data = json.load(acc_json)
+    cur_bal = acc_data['balance']
+    usr_name = acc_data['fname']
     print('Hey {}, your current account balance is ${}'.format(usr_name,cur_bal))
+    acc_json.close()

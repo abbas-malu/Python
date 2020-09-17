@@ -1,17 +1,20 @@
-import xlrd
+
 import os
-from acs_acc import add,acc_set,balance,withdraw,state_gen
+import json
+from acs_acc import add, acc_set, balance, withdraw, state_gen
+
+
 def acc():
     act_no = input("Enter Your Account No. : ").lower()
-    if os.path.exists('account\{}.xlsx'.format(act_no)):
+    if os.path.exists('account\{}.json'.format(act_no)):
+        acc_json = open('account\{}.json'.format(act_no), 'r')
+        acc_data = json.load(acc_json)
         pswd = input('Enter Password : ')
-        acc_file = xlrd.open_workbook('account\{}.xlsx'.format(act_no))
-        mn_sheet = acc_file.sheet_by_name('maindata')
-        pswd_org = mn_sheet.cell_value(2,0)
+        pswd_org = acc_data['pswd']
         acc_ch = 0
         while acc_ch != 6:
             if pswd == pswd_org:
-                name = mn_sheet.cell_value(0,0)
+                name = acc_data['fname']
                 print('Welcome {}'.format(name))
                 print('''Press
     1 for checking balance 
@@ -31,10 +34,11 @@ def acc():
                     state_gen.stat_gen(act_no)
                 elif acc_ch == 5:
                     acc_set.setting(act_no)
-                else:
-                    print('Wrong Choice')
+                elif acc_ch==6:
+                    print('Thanks')
             else:
                 print('Wrong Password!!')
                 break
+        acc_json.close()
     else:
         print('This Account Does Not Exists')

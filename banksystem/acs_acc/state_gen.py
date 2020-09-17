@@ -1,7 +1,8 @@
-import pandas as pd
+import json
 
 
 def stat_gen(acc_no):
-    excel_file = pd.ExcelFile('account\{}.xlsx'.format(acc_no))
-    state_sheet = excel_file.parse('statement')
-    print(state_sheet)
+    acc_json = open('account\{}.json'.format(acc_no), 'r')
+    acc_data = json.load(acc_json)
+    for stat in acc_data['statement']:
+        print("Date: {} Deposit: {} Withdraw: {} Balance: {}".format(stat['date'],stat['cr'],stat['cr'],stat['cr']))

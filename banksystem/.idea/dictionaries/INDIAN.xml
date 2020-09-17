@@ -2,8 +2,14 @@
   <dictionary name="INDIAN">
     <words>
       <w>aadhar</w>
+      <w>adhaar</w>
+      <w>fname</w>
+      <w>lname</w>
       <w>maindata</w>
+      <w>malu</w>
       <w>pswd</w>
+      <w>qamruddin</w>
+      <w>transtype</w>
       <w>withdrawed</w>
       <w>xlsx</w>
     </words>
