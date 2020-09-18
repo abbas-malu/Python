@@ -7,5 +7,5 @@ def stat_gen(acc_no):
     amt_list = []
     for stat in acc_data['statement']:
         amt_list.append([stat['date'],stat['dr'],stat['cr'],stat['up_bal']])
-    print(tabulate(amt_list, headers=['Date', 'Withdraw','Deposit','Balance']))
+    print(tabulate(amt_list, headers=['Date', 'Withdraw (Dr.)','Deposit (Dr.)','Balance']))
     acc_json.close()
