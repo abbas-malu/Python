@@ -16,7 +16,10 @@ def setting(act_no):
         elif set_opt == 3:
             chng_pass.password_change(act_no)
             #break
+        elif set_opt == 4:
+            print('Thanks')
         else:
-            print('Wrong Choice')
+            print('Wrong choice')
+            break
 
 

@@ -11,7 +11,7 @@ def withdraw(acc_no):
     acc_json.close()
     while True:
         amt = float(input('Enter the amount to be withdrawed in your account : '))
-        if (cur_bal > amt) & (cur_bal!=0) & (amt>0):
+        if (cur_bal > amt) & (cur_bal!=0) & (amt>1):
             total_bal = float(cur_bal) - amt
             acc_json = open('account\{}.json'.format(acc_no), 'w')
             acc_data['balance'] = float(total_bal)
