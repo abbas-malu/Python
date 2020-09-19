@@ -50,3 +50,10 @@ Your Aadhaar Number is          : {}
 Password To Access Your Account : {}
 Your Current Account Balance is : {}'''.format(acc_no, first_name, last_name, mob_no, aadhar_no, pswd, '$0.0'))
     acc_json.close()
+    admin_json = open('account\\admin.json','r')
+    admin_data = json.load(admin_json)
+    admin_json.close()
+    admin_json = open('account\\admin.json', 'w')
+    admin_data['accounts'].append({'acc_no':acc_no, "d_o_c":date})
+    json.dump(admin_data,admin_json)
+    admin_json.close()

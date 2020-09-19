@@ -21,6 +21,7 @@ import access
 import create
 import datetime
 import exit
+import admin
 import os
 
 
@@ -29,13 +30,16 @@ def home():
     while True:
         print("""\n\n\nPress 1 to access your account
 Press 2 to open new account
-Press 3 to exit""")
+Press 3 for admin login
+Press 4 to exit""")
         usr_ch = int(input('>> '))
         if usr_ch == 1:
             access.acc()
         elif usr_ch == 2:
             create.create_acc()
         elif usr_ch == 3:
+            admin.admin()
+        elif usr_ch == 4:
             exit.ext()
             break
         else:
