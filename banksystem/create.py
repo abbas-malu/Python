@@ -54,6 +54,6 @@ Your Current Account Balance is : {}'''.format(acc_no, first_name, last_name, mo
     admin_data = json.load(admin_json)
     admin_json.close()
     admin_json = open('account\\admin.json', 'w')
-    admin_data['accounts'].append({'acc_no':acc_no, "d_o_c":date})
+    admin_data['accounts'].append({'acc_no':acc_no,'acc_holder': "{} {}".format(first_name, last_name),'mobile':mob_no, "d_o_c":date})
     json.dump(admin_data,admin_json)
     admin_json.close()

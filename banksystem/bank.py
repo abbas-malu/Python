@@ -24,7 +24,7 @@ import exit
 import admin
 import os
 
-
+ 
 def home():
     print("Welcome To Python Bank")
     while True:
@@ -32,18 +32,22 @@ def home():
 Press 2 to open new account
 Press 3 for admin login
 Press 4 to exit""")
-        usr_ch = int(input('>> '))
-        if usr_ch == 1:
-            access.acc()
-        elif usr_ch == 2:
-            create.create_acc()
-        elif usr_ch == 3:
-            admin.admin()
-        elif usr_ch == 4:
-            exit.ext()
-            break
-        else:
-            print('Wrong Choice!!')
+        try:
+            usr_ch = int(input('>> '))
+            if usr_ch == 1:
+                access.acc()
+            elif usr_ch == 2:
+                create.create_acc()
+            elif usr_ch == 3:
+                admin.admin()
+            elif usr_ch == 4:
+                exit.ext()
+                break
+            else:
+                print('Wrong Choice!!')
+        except ValueError:
+            print('invalid choice')
+            continue
 
 
 home()
