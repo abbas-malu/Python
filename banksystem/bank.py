@@ -15,6 +15,10 @@
 #           c. Account Settings
 #           d. Get Statement For Account
 #           e. Check Current Balance
+#       3.Administrative Facilities:
+#           a.View Bank Accounts
+#           b.Add Admins
+#           c.Change Admin Passwords
 ################################################################
 
 import access

@@ -1,0 +1,34 @@
+{
+    "id": "X1X",
+    "name": {
+        "first_name": "Allie",
+        "last_name": "Faux"
+    },
+    "email": "afaux0@flickr.com",
+    "phone": "+86 985 959 1325",
+    "gender": "Male",
+    "address": {
+        "city": "Tieshan",
+        "country": "China",
+        "zip": "447208"
+    },
+    "ip_address": {
+        "v4": "148.150.15.219",
+        "v6": "ed03:339a:2202:17b4:5651:6a93:3c17:12b9"
+    },
+    "bank": {
+        "name": "Medhurst, Satterfield and Howe Bank of China Pvt Ltd",
+        "accNo": "149838314835788",
+        "balance": "$9540.57",
+        "credit_card_type": "americanexpress",
+        "credit_card_no": "374622145400171",
+        "credit_card_cvv": "406",
+        "net_bank_id": "Allie417",
+        "net_bank_pswd": "fi9d8M9z3qn"
+    },
+    "social": {
+        "facebook": "https://www.facebook.com/Allie-Faux",
+        "instagram": "https://www.instagram.com/Allie-Faux",
+        "twitter": "https://www.twitter.com/Allie-Faux"
+    }
+}
