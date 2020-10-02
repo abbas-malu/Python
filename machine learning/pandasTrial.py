@@ -13,4 +13,3 @@ for year in netflix_data.release_year:
     pass
 # print(len(list(range(len(netflix_data.title),0,-1))))
 years = netflix_data.release_year.value_counts()
-print(years)
