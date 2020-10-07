@@ -3,18 +3,39 @@ import os
 
 
 class Book:
-    def __init__(self, name: str, author: str, genre: str, price: int, publisher=None):
+    def __init__(self, name: str, author: str, genre: str, genreExists: bool, price: int, dateAdded: str,addedBy:str, publisher=None):
         self.name = name
         self.author = author
         self.genre = genre
         self.price = price
+        self.dateAdded = dateAdded
+        self.genreExists = genreExists
         self.publisher = publisher
+        if self.genreExists:
+            noOfBooks = len(os.listdir(f'booksArea/{self.genre}'))
+        else:
+            os.mkdir(f'booksArea/{self.genre}')
+            noOfBooks = 0
+        self.bookId = self.genre + '_00' + str(noOfBooks+1) 
+        self.addedBy = addedBy
 
     def save(self):
         """
         Saving The Book In The List
         """
-        pass
+        with open(f"booksArea/{self.genre}/{self.bookId}.json",'w') as bookFile:
+            newBook = {
+                'bookId':self.bookId,
+                'name': self.name,
+                'author':self.author,
+                'genre':self.genre,
+                'price':self.price,
+                'dateAdded':self.dateAdded,
+                'addedBy':self.addedBy,
+                'publisher':self.publisher,
+                'isAvailable':True,
+                }
+            json.dump(newBook,bookFile)
 
 
 class Admin():
@@ -46,9 +67,9 @@ class Admin():
             with open(f'adminArea/admins/{username}.json', 'r') as admin_data:
                 data = json.load(admin_data)
                 if data['password'] == passowrd:
-                    with open('adminArea/log.json','w') as log:
-                        logs = {'logged_in':True,'username':data['name']}
-                        json.dump(logs,log)
+                    with open('adminArea/log.json', 'w') as log:
+                        logs = {'logged_in': True, 'username': data['name']}
+                        json.dump(logs, log)
                     return [True, data['name']]
                 else:
                     return [False, 'Wrong Password']
@@ -62,17 +83,16 @@ class Admin():
         """
         with open('adminArea/log.json') as logFile:
             log = json.load(logFile)
-            if log['logged_in']==True:
-                return [True,log['username']]
+            if log['logged_in'] == True:
+                return [True, log['username']]
             else:
-                return [False,]
+                return [False, ]
+
     @staticmethod
     def logout():
         """
         Logout Admin Superuser
         """
-        with open('adminArea/log.json','w') as log:
-            logs = {'logged_in':False,'username':None}
-            json.dump(logs,log)
-        
-
+        with open('adminArea/log.json', 'w') as log:
+            logs = {'logged_in': False, 'username': None}
+            json.dump(logs, log)
