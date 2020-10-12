@@ -1,9 +1,12 @@
-import os
-from time import sleep
-from .dataObjects import Admin
-import shutil
 import datetime
 import json
+import os
+import shutil
+from time import sleep
+
+from .dataObjects import Admin
+
+
 def firstRun():
     print('Initializing', end='')
     for i in range(10):
@@ -31,18 +34,19 @@ def firstRun():
     os.mkdir('booksArea')
     os.mkdir('adminArea')
     os.mkdir('adminArea/admins')
-    with open('adminArea/log.json','w') as log:
-        logs = {'logged_in':False,'username':None}
-        json.dump(logs,log)
+    with open('adminArea/log.json', 'w') as log:
+        logs = {'logged_in': False, 'username': None}
+        json.dump(logs, log)
     os.mkdir('membersZone')
     os.mkdir('membersZone/members')
     os.mkdir('membersZone/members/Gold')
     os.mkdir('membersZone/members/Silver')
     os.mkdir('bookIssue')
     os.mkdir('AppDetails')
-    with open('AppDetails/app_log.json','w') as app_log:
-        logs = {'appVersion':'1.0','date_installed':str(datetime.datetime.now())}
-        json.dump(logs,app_log)
+    with open('AppDetails/app_log.json', 'w') as app_log:
+        logs = {'appVersion': '1.0', 'date_installed': str(
+            datetime.datetime.now())}
+        json.dump(logs, app_log)
     for i in range(10):
         print('.', end='')
         sleep(0.4)
@@ -57,8 +61,7 @@ def firstRun():
     newAdmin = Admin(name=admin_name, email=admin_email,
                      username=admin_username, password=admin_password)
     newAdmin.save()
-    
-    
+
 
 if __name__ == "__main__":
     firstRun()

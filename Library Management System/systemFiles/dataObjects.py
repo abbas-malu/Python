@@ -1,9 +1,10 @@
+import datetime
 import json
 import os
 
 
 class Book:
-    def __init__(self, name: str, author: str, genre: str, genreExists: bool, price: int, dateAdded: str,addedBy:str, publisher=None):
+    def __init__(self, name: str, author: str, genre: str, genreExists: bool, price: int, dateAdded: str, addedBy: str, publisher=None):
         self.name = name
         self.author = author
         self.genre = genre
@@ -16,26 +17,72 @@ class Book:
         else:
             os.mkdir(f'booksArea/{self.genre}')
             noOfBooks = 0
-        self.bookId = self.genre + '_00' + str(noOfBooks+1) 
+        self.bookId = self.genre + '_00' + str(noOfBooks+1)
         self.addedBy = addedBy
 
     def save(self):
         """
         Saving The Book In The List
         """
-        with open(f"booksArea/{self.genre}/{self.bookId}.json",'w') as bookFile:
+        with open(f"booksArea/{self.genre}/{self.bookId}.json", 'w') as bookFile:
             newBook = {
-                'bookId':self.bookId,
+                'bookId': self.bookId,
                 'name': self.name,
-                'author':self.author,
-                'genre':self.genre,
-                'price':self.price,
-                'dateAdded':self.dateAdded,
-                'addedBy':self.addedBy,
-                'publisher':self.publisher,
-                'isAvailable':True,
+                'author': self.author,
+                'genre': self.genre,
+                'price': self.price,
+                'dateAdded': self.dateAdded,
+                'addedBy': self.addedBy,
+                'publisher': self.publisher,
+                'isAvailable': True,
+                'issueID': None,
+            }
+            json.dump(newBook, bookFile)
+
+    @staticmethod
+    def issueBook(bookId: str,  issueDate: str, returnDate: str, isMember: bool, isReturned: bool, memberId=None, issuerName: str = None):
+        """
+        Issue A Book    
+        """
+        genre = bookId.split('_')[0]
+        issueID = 'issue_00' + str(len(os.listdir('bookIssue')) + 1)
+        with open(f'bookIssue/{issueID}.json', 'w') as issueFile:
+            issueObj = {
+                'issueID': issueID,
+                'bookId': bookId,
+                'issueDate': issueDate,
+                'returnDate': returnDate,
+                'isReturned': False,
+                'isMember': isMember,
+                'memberId': memberId,
+                'issuerName': issuerName,
+            }
+            json.dump(issueObj, issueFile)
+        with open(f'booksArea/{genre}/{bookId}.json', 'r') as bookFileReader:
+            bookData = json.load(bookFileReader)
+        with open(f'booksArea/{genre}/{bookId}.json', 'w') as bookFileWriter:
+            bookData['isAvailable'] = False
+            bookData['issueID'] = issueID
+            json.dump(bookData, bookFileWriter)
+        if isMember:
+            member_type = (memberId.split('_')[0]).capitalize()
+            with open(f'membersZone/members/{member_type}/{memberId}.json', 'r') as memberFileReader:
+                memberData = json.load(memberFileReader)
+            with open(f'membersZone/members/{member_type}/{memberId}.json', 'w') as memberFileWriter:
+                memberData['booksIssued'].append(issueID)
+                json.dump(memberData, memberFileWriter)
+            with open(f'bookIssue/{issueID}.json', 'w') as issueFile:
+                issueObj = {
+                    'issueID': issueID,
+                    'bookId': bookId,
+                    'issueDate': issueDate,
+                    'returnDate': returnDate,
+                    'isReturned': False,
+                    'isMember': isMember,
+                    'memberId': memberId,
+                    'issuerName': issuerName,
                 }
-            json.dump(newBook,bookFile)
+                json.dump(issueObj, issueFile)
 
 
 class Admin():
@@ -96,3 +143,32 @@ class Admin():
         with open('adminArea/log.json', 'w') as log:
             logs = {'logged_in': False, 'username': None}
             json.dump(logs, log)
+
+
+class Member():
+    """
+    Creating a library member
+    """
+
+    def __init__(self, name, mobile_no, membership_type):
+        """
+        docstring
+        """
+        self.memberId = membership_type + '_member_00' + \
+            str(len(os.listdir(f'membersZone/members/{membership_type}/')) + 1)
+        self.name = name
+        self.mobile_no = mobile_no
+        self.dateAdded = str(datetime.date.today())
+        self.membership_type = membership_type
+
+    def save(self):
+        memberObj = {
+            'memberId': self.memberId,
+            'name': self.name,
+            'mobile_no': self.mobile_no,
+            'membership_type': self.membership_type,
+            'booksIssued': [],
+        }
+        with open(f'membersZone/members/{self.membership_type}/{self.memberId}.json', 'w') as memberFile:
+            json.dump(memberObj, memberFile)
+        print(f'\nNew member succesfully added with membership type {self.membership_type}.\nMember Id is {self.memberId}\n')

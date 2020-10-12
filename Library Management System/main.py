@@ -1,12 +1,12 @@
 import os
 
-from systemFiles import addBook, first_run,viewBooks
+from systemFiles import addBook, first_run, issueBook, viewBooks,addMember
 from systemFiles.dataObjects import *
 
 
 def main():
     usr_ch = 0
-    while usr_ch !=6 or usr_ch !=7:
+    while usr_ch != 6 or usr_ch != 7:
         print('------Welcome To Library Management System------')
         if os.path.exists('AppDetails') and os.path.exists('adminArea') and os.path.exists('booksArea') and os.path.exists('membersZone') and os.path.exists('bookIssue'):
             if not(Admin.isAdminLogged()[0]):
@@ -15,7 +15,8 @@ def main():
                 print("Enter Admin Password:")
                 password_id = input('>> ')
                 if Admin.isAdminValid(admin_id, password_id)[0]:
-                    print(f'Welcome {Admin.isAdminValid(admin_id,password_id)[1]}')
+                    print(
+                        f'Welcome {Admin.isAdminValid(admin_id,password_id)[1]}')
                     print(f'Welcome {Admin.isAdminLogged()[1]}')
                     print('''Press
                     1 to Add Books
@@ -38,22 +39,24 @@ def main():
                 6 to exit and logout
                 7 to exit without logging out''')
                 usr_ch = int(input('>> '))
-                if usr_ch==1:
+                if usr_ch == 1:
                     addBook.addNewBook(Admin.isAdminLogged()[1])
                     print('Book Added Successfully')
                     continue
-                elif usr_ch==2:
+                elif usr_ch == 2:
                     viewBooks.listBooks()
                     continue
-                elif usr_ch==3:
-                    pass
-                elif usr_ch==4:
-                    pass
-                elif usr_ch==5:
-                    pass
-                elif usr_ch==6:
+                elif usr_ch == 3:
+                    issueBook.issueBook()
+                    continue
+                elif usr_ch == 4:
+                    addMember.AddMember()
+                    continue
+                elif usr_ch == 5:
+                    continue
+                elif usr_ch == 6:
                     Admin.logout()
-                elif usr_ch==7:
+                elif usr_ch == 7:
                     print('Have a great day ahead!!')
                     exit()
                 else:
