@@ -144,6 +144,26 @@ class Admin():
             logs = {'logged_in': False, 'username': None}
             json.dump(logs, log)
 
+    @staticmethod
+    def viewAdmins():
+        """
+        Viewing All Admins Detail
+        """
+        print('Viewing Admins')
+    
+    @staticmethod
+    def alterAdmin(detail_to_be_altered):
+        """
+        Altering Admin Details
+        """
+        print('Altering Admin')
+    
+    @staticmethod
+    def deleteAdmin():
+        """
+        Delete Admin
+        """
+        print('Deleting Admin')
 
 class Member():
     """
