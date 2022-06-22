@@ -30,7 +30,7 @@ matplotlib==3.2.1
 mccabe==0.6.1
 mysql-connector-python==8.0.21
 nltk==3.5
-numpy==1.18.3
+numpy==1.22.0
 openpyxl==3.0.4
 panda==0.3.1
 pandas==1.0.3
