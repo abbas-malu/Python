@@ -37,7 +37,7 @@ pandas==1.0.3
 parso==0.7.0
 pickleshare==0.7.5
 prompt-toolkit==3.0.5
-protobuf==3.13.0
+protobuf==3.18.3
 pycodestyle==2.6.0
 Pygments==2.6.1
 pylint==2.4.4
